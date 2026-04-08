@@ -75,9 +75,20 @@
 
 
 ---
-
 ## ⚙️ Setup Instructions
 
-1. Clone the repository
+### 1️⃣ Clone the repository
 ```bash
 git clone https://github.com/your-username/uniwear.git
+cd uniwear
+
+Open the .sln file in Visual Studio
+Restore NuGet packages (automatic)
+
+```bash
+Update-Database
+
+```bash
+dotnet run
+
+
