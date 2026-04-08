@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Uniwear.Models.Order>
+
+<h2 class="fw-bold mb-4">My Orders</h2>
+
+@if (!Model.Any())
+{
+    <div class="text-center mt-5">
+        <h5>No orders yet</h5>
+        <p>Explore products and place your first order.</p>
+
+        <a asp-controller="Product"
+           asp-action="Index"
+           class="btn btn-dark">
+            Explore Products
+        </a>
+    </div>
+}
+else
+{
+    @foreach (var order in Model)
+    {
+        <div class="card mb-4 shadow-sm">
+
+            <div class="card-header bg-light d-flex justify-content-between">
+
+                <div>
+                    <strong>Order Date:</strong>
+                    @order.OrderDate.ToString("dd MMM yyyy")
+                </div>
+
+                <div>
+                    <strong>Status:</strong>
+                    <span class="badge bg-success">
+                        @order.Status
+                    </span>
+                </div>
+
+                <div>
+                    <strong>Total:</strong>
+                    ₹@order.TotalAmount
+                </div>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    @foreach (var item in order.OrderItems)
+                    {
+                        <div class="col-md-3 mb-3">
+
+                            <div class="card h-100">
+
+                                <img src="@item.Product.ImageUrl"
+                                     class="card-img-top"
+                                     style="height:200px; object-fit:cover;" />
+
+                                <div class="card-body text-center">
+
+                                    <h6>@item.Product.Name</h6>
+
+                                    <p class="mb-1">
+                                        Qty: @item.Quantity
+                                    </p>
+
+                                    <p class="fw-bold">
+                                        ₹@item.Price
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+    }
+}

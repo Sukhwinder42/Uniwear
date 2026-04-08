@@ -1,0 +1,101 @@
+﻿@using Uniwear.ViewModels
+@model Uniwear.ViewModels.ProductViewModel
+
+<div class="container-fluid mt-5">
+    <a asp-controller="Product" asp-action="Index" class="btn btn-outline-dark mb-3">
+        ← Back to Products
+    </a>
+    <div class="row">
+
+        <!-- LEFT: Product Image -->
+        <div class="col-md-7 px-0">
+            <img src="@Model.ImageUrl"
+                 alt="@Model.Name"
+                 class="img-fluid w-100"
+                 style="max-height: 90vh; object-fit: cover;" />
+        </div>
+
+        <!-- RIGHT: Product Info -->
+        <div class="col-md-5 px-5">
+
+            <!-- Product Name -->
+            <h5 class="text-uppercase fw-normal mb-2">
+                @Model.Name
+            </h5>
+
+            <!-- Price -->
+            <p class="fw-semibold mb-3">
+                ₹ @Model.Price
+                <span class="text-muted" style="font-size: 0.8rem;">
+                    MRP inclusive of all taxes
+                </span>
+            </p>
+
+            <button onclick="addToCart(@Model.Id)"
+                    class="btn btn-dark w-100 py-3 text-uppercase">
+                Add To Cart
+            </button>
+
+            <!-- Accordion Sections -->
+            <div class="mt-4 border-top pt-3">
+
+                <details class="mb-3">
+                    <summary class="fw-semibold text-uppercase">
+                        Description
+                    </summary>
+                    <p class="mt-2">
+                        @Model.Description
+                    </p>
+                </details>
+
+                <details class="mb-3">
+                    <summary class="fw-semibold text-uppercase">
+                        Product Details
+                    </summary>
+                    <p class="mt-2">
+                        Stock Available: @Model.StockQuantity
+                    </p>
+                </details>
+
+                <details>
+                    <summary class="fw-semibold text-uppercase">
+                        Delivery & Returns
+                    </summary>
+                    <p class="mt-2">
+                        Standard delivery within 3–5 business days.
+                    </p>
+                </details>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+        function addToCart(productId) {
+
+        fetch('/Cart/AddToCart?productId=' + productId, {
+            method: 'POST'
+        })
+        .then(response => response.json())
+        .then(data => {
+
+            if (!data.success && data.redirect) {
+                // redirect to login page
+                window.location.href = data.redirect;
+                return;
+            }
+
+            if (data.success) {
+
+                // update cart icon count
+                document.getElementById("cart-count").innerText = data.count;
+
+                // show mini cart
+                document.getElementById("miniCart").style.display = "block";
+            }
+        })
+        .catch(error => console.log(error));
+    }
+</script>

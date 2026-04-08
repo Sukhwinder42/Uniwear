@@ -1,0 +1,13 @@
+﻿@model Uniwear.ViewModels.CheckoutViewModel
+
+<h2>Checkout</h2>
+
+<form asp-action="PlaceOrder" method="post">
+    <input asp-for="FullName" placeholder="Full Name" />
+    <input asp-for="Address" placeholder="Address" />
+    <input asp-for="City" placeholder="City" />
+    <input asp-for="PostalCode" placeholder="Postal Code" />
+    <input asp-for="PhoneNumber" placeholder="Phone Number" />
+
+    <button type="submit">Confirm Order</button>
+</form>

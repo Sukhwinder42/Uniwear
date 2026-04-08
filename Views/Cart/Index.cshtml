@@ -1,0 +1,122 @@
+﻿@model IEnumerable<Uniwear.ViewModels.CartViewModel>
+
+<a asp-controller="Product" asp-action="Index" class="btn btn-outline-dark mb-3">
+    ← Back to Products
+</a>
+
+<div class="container mt-4">
+
+    <h2 class="shopping-title">SHOPPING BAG</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            Your cart is empty.
+        </div>
+    }
+    else
+    {
+        <div class="row">
+
+            <div class="col-lg-8">
+
+                @foreach (var item in Model)
+                {
+                    <div class="card mb-3 shadow-sm">
+                        <div class="row g-0 align-items-center">
+
+                            <div class="col-md-3 text-center p-2">
+                                <img src="@item.ImageUrl"
+                                     class="img-fluid rounded"
+                                     style="max-height:120px;" />
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="card-body">
+
+                                    <h5 class="card-title">@item.ProductName</h5>
+
+                                    <p class="text-muted mb-1">
+                                        Price: ₹ @item.Price
+                                    </p>
+
+                                    @* <p class="mb-1">
+                                        Quantity: <strong>@item.Quantity</strong>
+                                    </p> *@
+                                    <div class="d-flex align-items-center gap-2">
+
+                                        <a asp-controller="Cart"
+                                           asp-action="Decrease"
+                                           asp-route-cartItemId="@item.CartItemId"
+                                           class="btn btn-outline-secondary btn-sm">
+                                            -
+                                        </a>
+
+                                        <strong>@item.Quantity</strong>
+
+                                        <a asp-controller="Cart"
+                                           asp-action="Increase"
+                                           asp-route-cartItemId="@item.CartItemId"
+                                           class="btn btn-outline-secondary btn-sm">
+                                            +
+                                        </a>
+
+                                    </div>
+
+                                    <p class="fw-bold text-success">
+                                        Total: ₹ @item.TotalPrice
+                                    </p>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 text-center">
+
+                                <a asp-action="Remove"
+                                   asp-route-cartItemId="@item.CartItemId"
+                                   class="btn btn-outline-danger btn-sm">
+                                    <i class="bi bi-trash"></i> Remove
+                                </a>
+
+                            </div>
+
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+
+            <div class="col-lg-4">
+
+                <div class="card shadow-sm p-3">
+
+                    <h4 class="fw-bold">Order Summary</h4>
+
+                    <hr />
+
+                    <h5>
+                        Total:
+                        <span class="text-success">
+                            ₹ @Model.Sum(x => x.TotalPrice)
+                        </span>
+                    </h5>
+
+                    @* <a asp-controller="Order"
+                       asp-action="Checkout"
+                       class="btn btn-dark w-100 mt-3">
+                        Proceed to Checkout
+                    </a> *@
+                    <form asp-controller="Payment" asp-action="CreateCheckoutSession" method="post">
+                        <input type="hidden" name="amount" value="@Model.Sum(x => x.TotalPrice)" />
+                        <button type="submit" class="btn btn-success">
+                            Pay with Stripe
+                        </button>
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+    }
