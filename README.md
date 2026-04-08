@@ -59,17 +59,20 @@
 ## 📸 Application Screenshots
 
 ### 🏠 Home Page
-![Home](<img width="1866" height="871" alt="image" src="https://github.com/user-attachments/assets/ed2ed968-4b91-43c8-ad93-0e7834606886" />
-.png)
+![Screenshot_8-4-2026_135410_localhost](https://github.com/user-attachments/assets/84d63171-ac5f-4d6a-9936-d0ddb68d8d7c)
 
-### 🛍️ Product Listing
-![Products](screenshots/products.png)
-
-### 🛒 Cart Page
-![Cart](screenshots/cart.png)
 
 ### 🔐 Login with Google
-![Login](screenshots/login.png)
+![Screenshot_8-4-2026_135512_localhost](https://github.com/user-attachments/assets/6f793b84-7b87-446f-be1d-395ffb4ac54b)
+
+
+### 🛒 Cart Page
+![Screenshot_8-4-2026_135611_localhost](https://github.com/user-attachments/assets/d5dd0861-beb1-43ea-b28f-8f62c300f12d)
+
+
+### Stripe Payment
+![Screenshot_8-4-2026_13573_checkout stripe com](https://github.com/user-attachments/assets/0cfc1596-73c5-4a28-8a91-2e33f4c7a806)
+
 
 ---
 
