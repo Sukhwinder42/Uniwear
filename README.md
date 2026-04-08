@@ -59,7 +59,8 @@
 ## 📸 Application Screenshots
 
 ### 🏠 Home Page
-![Home](screenshots/home.png)
+![Home](<img width="1866" height="871" alt="image" src="https://github.com/user-attachments/assets/ed2ed968-4b91-43c8-ad93-0e7834606886" />
+.png)
 
 ### 🛍️ Product Listing
 ![Products](screenshots/products.png)
