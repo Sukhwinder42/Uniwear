@@ -79,7 +79,7 @@
 
 ### 1️⃣ Clone the repository
 ```bash
-git clone https://github.com/your-username/uniwear.git
+git clone https://github.com/Sukhwinder42/uniwear.git
 cd uniwear
 
 Open the .sln file in Visual Studio
