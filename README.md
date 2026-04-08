@@ -85,10 +85,8 @@ cd uniwear
 Open the .sln file in Visual Studio
 Restore NuGet packages (automatic)
 
-```bash
 Update-Database
 
-```bash
 dotnet run
 
 
