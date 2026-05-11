@@ -28,6 +28,30 @@
         <input type="file" class="form-control" id="imageUpload" asp-for="ImageFile" />
     </div>
 
+    <div class="mb-3">
+        <label>Color</label>
+        <input asp-for="Color" class="form-control" />
+        <span asp-validation-for="Color" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label>Occasion</label>
+        <input asp-for="Occasion" class="form-control" />
+        <span asp-validation-for="Occasion" class="text-danger"></span>
+    </div>
+
+    @* <div class="mb-3">
+        <label>Type</label>
+        <input asp-for="Type" class="form-control" />
+    </div> *@
+    <select asp-for="Type" class="form-control">
+        <option value="">Select Type</option>
+        <option value="Top">Top</option>
+        <option value="Bottom">Bottom</option>
+        <option value="Shoes">Shoes</option>
+        <option value="Accessory">Accessory</option>
+        <option value="Full Body">Full Body</option>
+    </select>
+
     <div class="form-group">
         <label>Gender Group</label>
         <select asp-for="GenderGroup" class="form-control" required>

@@ -6,32 +6,53 @@
 
     @if (SignInManager.IsSignedIn(User))
     {
-        <!-- Profile Icon -->
-        <li class="nav-item">
-            <a class="nav-link text-dark"
-               asp-area="Identity"
-               asp-page="/Account/Manage/Index"
-               title="My Account">
-                <i class="bi bi-person" style="font-size:20px;"></i>
+        <li class="nav-item dropdown">
+            <a class="nav-link text-dark dropdown-toggle"
+               href="#"
+               data-bs-toggle="dropdown"
+               aria-expanded="false">
+                <i class="bi bi-person-circle" style="font-size:20px;"></i>
             </a>
-        </li>
 
-        <!-- Logout Icon -->
-        <li class="nav-item">
-            <form asp-area="Identity"
-                  asp-page="/Account/Logout"
-                  asp-route-returnUrl="@Url.Action("Index", "Product")"
-                  class="d-inline">
+            <ul class="dropdown-menu dropdown-menu-end shadow border-0">
 
-                <button type="submit" class="nav-link btn btn-link text-dark p-0">
-                    <i class="bi bi-box-arrow-right" style="font-size:20px;"></i>
-                </button>
-            </form>
+                <li class="px-3 py-2 text-muted small">
+                    Hello, @User.Identity?.Name
+                </li>
+
+                <li>
+                    <a class="dropdown-item"
+                       asp-controller="Order"
+                       asp-action="MyOrders">
+                         My Orders
+                    </a>
+                </li>
+
+                <li>
+                    <a class="dropdown-item"
+                       asp-area="Identity"
+                       asp-page="/Account/Manage/Index">
+                         Profile
+                    </a>
+                </li>
+
+                <li><hr class="dropdown-divider"></li>
+
+                <li>
+                    <form asp-area="Identity"
+                          asp-page="/Account/Logout"
+                          asp-route-returnUrl="@Url.Action("Index", "Product")">
+                        <button type="submit" class="dropdown-item text-danger">
+                             Logout
+                        </button>
+                    </form>
+                </li>
+
+            </ul>
         </li>
     }
     else
     {
-        <!-- Login Icon -->
         <li class="nav-item">
             <a class="nav-link text-dark"
                asp-area="Identity"

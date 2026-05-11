@@ -25,12 +25,12 @@ namespace Uniwear.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
 
-            int userId = int.Parse(user.Id);
+            var userId = user.Id;   //  string, no parsing
 
             var orders = await _context.Orders
+                .Where(o => o.UserId == userId)   //  correct filter
                 .Include(o => o.OrderItems)
                 .ThenInclude(i => i.Product)
-                .Where(o => o.UserId == userId)
                 .OrderByDescending(o => o.OrderDate)
                 .ToListAsync();
 

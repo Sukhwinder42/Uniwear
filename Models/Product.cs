@@ -25,5 +25,10 @@ namespace Uniwear.Models
 
         public Category? Category { get; set; } // Navigation property
         public ICollection<OrderItem> OrderItem { get; set; } // Navigation property
+
+
+        public string Color { get; set; }        // e.g. Black, White
+        public string Type { get; set; }         // Top, Bottom, Shoes
+        public string Occasion { get; set; }     // Casual, Formal, Party
     }
 }

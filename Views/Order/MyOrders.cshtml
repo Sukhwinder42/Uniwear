@@ -30,9 +30,19 @@ else
 
                 <div>
                     <strong>Status:</strong>
-                    <span class="badge bg-success">
-                        @order.Status
-                    </span>
+                   
+                    @if (order.Status == "Paid")
+                    {
+                        <span class="badge bg-success">Paid</span>
+                    }
+                    else if (order.Status == "Pending")
+                    {
+                        <span class="badge bg-warning text-dark">Pending</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">@order.Status</span>
+                    }
                 </div>
 
                 <div>

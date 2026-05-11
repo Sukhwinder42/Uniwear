@@ -17,10 +17,6 @@ html {
   min-height: 100%;
 }
 
-/*body {
-  margin-bottom: 60px;
-}*/
-
 body {
     display: flex;
     flex-direction: column;
@@ -137,7 +133,6 @@ main {
 
 .hero-banner {
     width: 100%;
-/*    height: 450px;*/
     height: 900px;
     position: relative;
     overflow: hidden;
@@ -147,8 +142,6 @@ main {
 .hero-img {
     width: 100%;
     height: 100%;
-/*    object-fit: cover;*/
-    /*    object-position: right center;*/
     object-position: center;
 }
 
@@ -158,8 +151,3 @@ main {
     left: 60px;
     color: white;
 }
-
-/*    .hero-text h1 {
-        font-size: 40px;
-        font-weight: bold;
-    }*/

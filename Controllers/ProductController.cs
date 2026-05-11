@@ -14,12 +14,14 @@ namespace Uniwear.Controllers
         private readonly IProductService _productService;   
         private readonly ICategoryService _categoryService;
         private readonly ApplicationDbContext _context;
+        private readonly OutfitService _outfitService;
 
-        public ProductController(IProductService productService, ICategoryService categoryService, ApplicationDbContext context)
+        public ProductController(IProductService productService, ICategoryService categoryService, ApplicationDbContext context, OutfitService outfitService)
         {
             _productService = productService;
             _categoryService = categoryService;
             _context = context;
+            _outfitService = outfitService;
         }
 
         public async Task<IActionResult> Index()
@@ -91,7 +93,11 @@ namespace Uniwear.Controllers
                 CategoryId = model.CategoryId,
                 StockQuantity = model.StockQuantity,
 
-                GenderGroup = model.GenderGroup
+                GenderGroup = model.GenderGroup,
+                Color = model.Color,
+                Occasion = model.Occasion,
+                Type = model.Type
+
             };
 
             await _productService.CreateProductAsync(product);
@@ -275,6 +281,26 @@ namespace Uniwear.Controllers
             return PartialView("_ProductListPartial", result);
         }
 
+        public async Task<IActionResult> GenerateOutfit(int id)
+        {
+            var product = await _context.Products.FindAsync(id);
+
+            if (product == null)
+                return NotFound();
+
+            var result = await _outfitService.GenerateOutfit(product);
+
+            var outfit = result.Item1;
+            var usedAI = result.Item2;
+
+            ViewBag.SelectedProduct = product;
+            //added
+            ViewBag.AIUsed = usedAI;
+
+            return View(outfit);
+        }
+
+     
     }
 
 }

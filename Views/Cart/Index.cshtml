@@ -18,6 +18,7 @@
     {
         <div class="row">
 
+            <!-- LEFT SIDE -->
             <div class="col-lg-8">
 
                 @foreach (var item in Model)
@@ -25,12 +26,14 @@
                     <div class="card mb-3 shadow-sm">
                         <div class="row g-0 align-items-center">
 
+                            <!-- Product Image -->
                             <div class="col-md-3 text-center p-2">
                                 <img src="@item.ImageUrl"
                                      class="img-fluid rounded"
                                      style="max-height:120px;" />
                             </div>
 
+                            <!-- Product Info -->
                             <div class="col-md-6">
                                 <div class="card-body">
 
@@ -40,11 +43,33 @@
                                         Price: ₹ @item.Price
                                     </p>
 
-                                    @* <p class="mb-1">
-                                        Quantity: <strong>@item.Quantity</strong>
-                                    </p> *@
+                                    <p class="mb-2">
+                                        Stock:
+
+                                        @if (item.StockQuantity > 5)
+                                        {
+                                            <span class="text-success fw-bold">
+                                                In Stock (@item.StockQuantity)
+                                            </span>
+                                        }
+                                        else if (item.StockQuantity > 0)
+                                        {
+                                            <span class="text-warning fw-bold">
+                                                Only @item.StockQuantity left
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-danger fw-bold">
+                                                Out of Stock
+                                            </span>
+                                        }
+                                    </p>
+
+                                    <!-- Quantity Buttons -->
                                     <div class="d-flex align-items-center gap-2">
 
+                                        <!-- Minus -->
                                         <a asp-controller="Cart"
                                            asp-action="Decrease"
                                            asp-route-cartItemId="@item.CartItemId"
@@ -54,22 +79,32 @@
 
                                         <strong>@item.Quantity</strong>
 
-                                        <a asp-controller="Cart"
-                                           asp-action="Increase"
-                                           asp-route-cartItemId="@item.CartItemId"
-                                           class="btn btn-outline-secondary btn-sm">
-                                            +
-                                        </a>
-
+                                        @if (item.Quantity < item.StockQuantity)
+                                        {
+                                            <a asp-controller="Cart"
+                                               asp-action="Increase"
+                                               asp-route-cartItemId="@item.CartItemId"
+                                               class="btn btn-outline-secondary btn-sm">
+                                                +
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <button class="btn btn-secondary btn-sm" disabled>
+                                                +
+                                            </button>
+                                        }
                                     </div>
 
-                                    <p class="fw-bold text-success">
+                                    <!-- Total -->
+                                    <p class="fw-bold text-success mt-2">
                                         Total: ₹ @item.TotalPrice
                                     </p>
 
                                 </div>
                             </div>
 
+                            <!-- Remove -->
                             <div class="col-md-3 text-center">
 
                                 <a asp-action="Remove"
@@ -86,7 +121,7 @@
 
             </div>
 
-
+            <!-- RIGHT SIDE -->
             <div class="col-lg-4">
 
                 <div class="card shadow-sm p-3">
@@ -102,16 +137,19 @@
                         </span>
                     </h5>
 
-                    @* <a asp-controller="Order"
-                       asp-action="Checkout"
-                       class="btn btn-dark w-100 mt-3">
-                        Proceed to Checkout
-                    </a> *@
-                    <form asp-controller="Payment" asp-action="CreateCheckoutSession" method="post">
-                        <input type="hidden" name="amount" value="@Model.Sum(x => x.TotalPrice)" />
-                        <button type="submit" class="btn btn-success">
+                    <form asp-controller="Payment"
+                          asp-action="CreateCheckoutSession"
+                          method="post">
+
+                        <input type="hidden"
+                               name="amount"
+                               value="@Model.Sum(x => x.TotalPrice)" />
+
+                        <button type="submit"
+                                class="btn btn-success w-100 mt-3">
                             Pay with Stripe
                         </button>
+
                     </form>
 
                 </div>
@@ -120,3 +158,5 @@
 
         </div>
     }
+
+</div>

@@ -1,15 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Stripe.Checkout;
+using Uniwear.Services;
+
 
 namespace Uniwear.Controllers
 {
     public class PaymentController : Controller
     {
         private readonly ICartService _cartService;
-
-        public PaymentController(ICartService cartService)
+        private readonly OrderService _orderService;
+        public PaymentController(ICartService cartService, OrderService orderService)
         {
             _cartService = cartService;
+            _orderService = orderService;
         }
         public IActionResult CreateCheckoutSession(decimal amount)
         {
@@ -50,13 +53,7 @@ namespace Uniwear.Controllers
 
         public async Task<IActionResult> Success()
         {
-            // Remove all items from the logged-in user's cart
-            var cartItems = await _cartService.GetUserCartAsync(User);
-
-            foreach (var item in cartItems)
-            {
-                await _cartService.RemoveAsync(item.CartItemId);
-            }
+            await _orderService.PlaceOrderAsync(User);   
 
             return View();
         }

@@ -31,5 +31,10 @@ namespace Uniwear.ViewModels
         public List<Category>? Categories { get; set; }
 
         public string GenderGroup { get; set; }
+          
+        public string Color { get; set; }
+        public string Occasion { get; set; }
+
+        public string Type { get; set; }
     }
 }

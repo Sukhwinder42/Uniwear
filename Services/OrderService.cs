@@ -16,12 +16,11 @@ namespace Uniwear.Services
 
         public async Task PlaceOrderAsync(ClaimsPrincipal user)
         {
-            var userId = int.Parse(user.FindFirstValue(ClaimTypes.NameIdentifier));
-
+            var userId = user.FindFirstValue(ClaimTypes.NameIdentifier);
             var cartItems = await _context.CartItems
-          //      .Where(c => c.UserId == userId)
-                .Include(c => c.Product)
-                .ToListAsync();
+           .Where(c => c.UserId == userId)
+           .Include(c => c.Product)
+           .ToListAsync();
 
             if (!cartItems.Any()) return;
 
@@ -31,15 +30,17 @@ namespace Uniwear.Services
                 UserId = userId,
                 OrderDate = DateTime.UtcNow,
                 TotalAmount = cartItems.Sum(c => c.Product.Price * c.Quantity),
-                Status = "Pending",
+                Status = "Paid",
                 OrderItems = new List<OrderItem>()
             };
 
+     
             foreach (var item in cartItems)
             {
+                item.Product.StockQuantity -= item.Quantity;
+
                 order.OrderItems.Add(new OrderItem
                 {
-              
                     ProductId = item.ProductId,
                     Quantity = item.Quantity,
                     Price = item.Product.Price
@@ -54,12 +55,13 @@ namespace Uniwear.Services
 
         public async Task<IEnumerable<Order>> GetUserOrdersAsync(ClaimsPrincipal user)
         {
-            var userId = int.Parse(user.FindFirstValue(ClaimTypes.NameIdentifier));
+            var userId = user.FindFirstValue(ClaimTypes.NameIdentifier);
 
             return await _context.Orders
-                .Include(o => o.OrderItems)
-                .ThenInclude(oi => oi.Product)
-                .ToListAsync();
+            .Where(o => o.UserId == userId)
+            .Include(o => o.OrderItems)
+            .ThenInclude(oi => oi.Product)
+            .ToListAsync();
         }
     }
 }

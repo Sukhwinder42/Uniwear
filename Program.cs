@@ -24,10 +24,10 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = false;                  // no auto-renewal
     options.Cookie.IsEssential = true;
     options.Cookie.HttpOnly = true;
-    options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict;
+    options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Lax;
 
     // This is the key setting to make the cookie a session cookie:
-    options.Cookie.MaxAge = null;  // Make cookie expire at browser close
+    //options.Cookie.MaxAge = null;  // Make cookie expire at browser close
 });
 
 
@@ -47,6 +47,9 @@ builder.Services.AddAuthentication()
 var stripeSecretKey = Environment.GetEnvironmentVariable("STRIPE_SECRET_KEY");
 StripeConfiguration.ApiKey = stripeSecretKey;
 
+// Gemini configuration
+var geminiApiKey = builder.Configuration["Gemini:ApiKey"];
+
 builder.Services.AddRouting(options =>
 {
     options.LowercaseUrls = true;
@@ -58,10 +61,14 @@ builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<Uniwear.Services.OrderService>();
 
 
+builder.Services.AddHttpClient<OutfitService>();
+builder.Services.AddScoped<OutfitService>();
+
 
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
+
 
 using (var scope = app.Services.CreateScope())
 {
@@ -76,19 +83,38 @@ using (var scope = app.Services.CreateScope())
         await roleManager.CreateAsync(new IdentityRole("Admin"));
     }
 
-    // Assign Admin role to a specific user
-    string adminEmail = "admin@uniwear.com"; // change if needed
+    string adminEmail = builder.Configuration["AdminSettings:Email"];
+    string adminPassword = builder.Configuration["AdminSettings:Password"];
+
     var user = await userManager.FindByEmailAsync(adminEmail);
 
-    if (user != null && !await userManager.IsInRoleAsync(user, "Admin"))
+    if (user == null)
+    {
+        user = new ApplicationUser
+        {
+            UserName = adminEmail,
+            Email = adminEmail,
+            EmailConfirmed = true
+        };
+
+        await userManager.CreateAsync(user, adminPassword);
+    }
+    else
+    {
+        // reset password if user exists
+        var token = await userManager.GeneratePasswordResetTokenAsync(user);
+        await userManager.ResetPasswordAsync(user, token, adminPassword);
+    }
+
+    // ensure role
+    if (!await userManager.IsInRoleAsync(user, "Admin"))
     {
         await userManager.AddToRoleAsync(user, "Admin");
     }
 }
 
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+    // Configure the HTTP request pipeline.
+    if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
 }

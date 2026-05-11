@@ -230,37 +230,6 @@ namespace Uniwear.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Uniwear.Models.Banner", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("RedirectUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Banners");
-                });
-
             modelBuilder.Entity("Uniwear.Models.CartItem", b =>
                 {
                     b.Property<int>("Id")
@@ -351,8 +320,9 @@ namespace Uniwear.Migrations
                     b.Property<decimal>("TotalAmount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -401,6 +371,10 @@ namespace Uniwear.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -416,11 +390,19 @@ namespace Uniwear.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Occasion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("StockQuantity")
                         .HasColumnType("int");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -433,51 +415,66 @@ namespace Uniwear.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
+                            Color = "Black",
                             Description = "A comfortable and stylish hoodie for university students.",
                             ImageUrl = "https://in.puma.com/in/en/pd/essentials-no--1-logo-mens-comfort-hoodie/682571?size=0140&swatch=55&utm_source=BING-DDA&utm_medium=DSP&utm_campaign=DSP_BING_DDA_IN_PMAX_agency_1000067495857508873&msclkid=2707980aa4df1e51bf0bf196b51250c6",
                             Name = "Uniwear Hoodie",
+                            Occasion = "Casual",
                             Price = 39.99m,
-                            StockQuantity = 100
+                            StockQuantity = 100,
+                            Type = "Top"
                         },
                         new
                         {
                             Id = 2,
                             CategoryId = 2,
+                            Color = "White",
                             Description = "A cool t-shirt with the Uniwear logo.",
                             ImageUrl = "https://sl.bing.net/fw3YOvHs6H6",
                             Name = "Uniwear T-Shirt",
+                            Occasion = "Casual",
                             Price = 19.99m,
-                            StockQuantity = 200
+                            StockQuantity = 200,
+                            Type = "Top"
                         },
                         new
                         {
                             Id = 3,
                             CategoryId = 3,
+                            Color = "Navy",
                             Description = "A durable backpack perfect for carrying your books and laptop.",
                             ImageUrl = "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_750,h_750/global/091993/01/fnd/IND/fmt/png/Archive-KING-Backpack-28L",
                             Name = "Uniwear Backpack",
+                            Occasion = "Casual",
                             Price = 49.99m,
-                            StockQuantity = 150
+                            StockQuantity = 150,
+                            Type = "Top"
                         },
                         new
                         {
                             Id = 4,
                             CategoryId = 4,
+                            Color = "Red",
                             Description = "A stylish cap to complete your university look.",
                             ImageUrl = "https://sl.bing.net/eEj6P0lzOc8",
                             Name = "Uniwear Cap",
+                            Occasion = "Casual",
                             Price = 14.99m,
-                            StockQuantity = 300
+                            StockQuantity = 300,
+                            Type = "Top"
                         },
                         new
                         {
                             Id = 5,
                             CategoryId = 5,
+                            Color = "Grey",
                             Description = "Comfortable sweatpants for lounging or studying.",
                             ImageUrl = "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_750,h_750/global/691700/16/mod01/fnd/IND/fmt/png/Essentials-Block-Men's-Knitted-Sweatpants",
                             Name = "Uniwear Sweatpants",
+                            Occasion = "Loungewear",
                             Price = 29.99m,
-                            StockQuantity = 120
+                            StockQuantity = 120,
+                            Type = "Bottom"
                         });
                 });
 

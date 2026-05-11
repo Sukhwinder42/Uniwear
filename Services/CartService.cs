@@ -30,7 +30,8 @@ namespace Uniwear.Services
                     ProductId = c.ProductId,
                     ProductName = c.Product.Name,
                     Price = c.Product.Price,
-                    Quantity = c.Quantity
+                    Quantity = c.Quantity,
+                    StockQuantity = c.Product.StockQuantity
                 })
                 .ToListAsync();
         }
@@ -39,13 +40,18 @@ namespace Uniwear.Services
         {
             var userId = user.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var productExists = await _context.Products.AnyAsync(p => p.Id == productId);
+            var product = await _context.Products.FindAsync(productId);
 
-            if (!productExists)
+            if (product == null)
                 throw new Exception("Product not found");
 
             var existingItem = await _context.CartItems
                 .FirstOrDefaultAsync(c => c.ProductId == productId && c.UserId == userId);
+
+            int currentQty = existingItem?.Quantity ?? 0;
+
+            if (currentQty >= product.StockQuantity)
+                throw new Exception($"Only {product.StockQuantity} item(s) available.");
 
             if (existingItem != null)
             {
@@ -53,15 +59,12 @@ namespace Uniwear.Services
             }
             else
             {
-                var cartItem = new CartItem
+                _context.CartItems.Add(new CartItem
                 {
-                  
                     ProductId = productId,
                     UserId = userId,
                     Quantity = 1
-                };
-
-                _context.CartItems.Add(cartItem);
+                });
             }
 
             await _context.SaveChangesAsync();
@@ -69,14 +72,20 @@ namespace Uniwear.Services
 
         public async Task IncreaseQuantity(int cartItemId)
         {
-            var item = await _context.CartItems.FindAsync(cartItemId);
+            var item = await _context.CartItems
+                .Include(c => c.Product)
+                .FirstOrDefaultAsync(c => c.Id == cartItemId);
 
             if (item != null)
             {
-                item.Quantity += 1;
-                await _context.SaveChangesAsync();
+                if (item.Quantity < item.Product.StockQuantity)
+                {
+                    item.Quantity += 1;
+                    await _context.SaveChangesAsync();
+                }
             }
         }
+
 
         public async Task DecreaseQuantity(int cartItemId)
         {
@@ -105,6 +114,33 @@ namespace Uniwear.Services
                 _context.CartItems.Remove(item);
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public async Task AddMultipleToCartAsync(ClaimsPrincipal user, List<int> productIds)
+        {
+            var userId = user.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            foreach (var productId in productIds)
+            {
+                var existingItem = await _context.CartItems
+                    .FirstOrDefaultAsync(c => c.ProductId == productId && c.UserId == userId);
+
+                if (existingItem != null)
+                {
+                    existingItem.Quantity += 1;
+                }
+                else
+                {
+                    _context.CartItems.Add(new CartItem
+                    {
+                        ProductId = productId,
+                        UserId = userId,
+                        Quantity = 1
+                    });
+                }
+            }
+
+            await _context.SaveChangesAsync();
         }
     }
 }

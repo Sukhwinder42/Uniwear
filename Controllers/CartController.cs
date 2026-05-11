@@ -20,29 +20,32 @@ namespace Uniwear.Controllers
             return View(cart);
         }
 
-        
         [HttpPost]
         public async Task<IActionResult> AddToCart(int productId)
         {
-            if (!User.Identity.IsAuthenticated)
+            try
+            {
+                await _cartService.AddToCartAsync(User, productId);
+
+                var cart = await _cartService.GetUserCartAsync(User);
+
+                return Json(new
+                {
+                    success = true,
+                    count = cart.Count()
+                });
+            }
+            catch (Exception ex)
             {
                 return Json(new
                 {
                     success = false,
-                    redirect = Url.Page("/Account/Login", new { area = "Identity" })
+                    message = ex.Message
                 });
             }
-
-            await _cartService.AddToCartAsync(User, productId);
-
-            var cart = await _cartService.GetUserCartAsync(User);
-
-            return Json(new
-            {
-                success = true,
-                count = cart.Count()
-            });
         }
+
+
 
         public async Task<IActionResult> Increase(int cartItemId)
         {
@@ -60,6 +63,27 @@ namespace Uniwear.Controllers
         {
             await _cartService.RemoveAsync(cartItemId);
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddMultiple(List<int> selectedProductIds)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
+            }
+
+            if (selectedProductIds == null || !selectedProductIds.Any())
+            {
+                TempData["Error"] = "Please select at least one product.";
+                return RedirectToAction("Index", "Product");
+            }
+
+            await _cartService.AddMultipleToCartAsync(User, selectedProductIds);
+
+            TempData["Success"] = "Products added to cart successfully!";
+
+            return RedirectToAction("Index"); // goes to Cart page
         }
     }
 }
