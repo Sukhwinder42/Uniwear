@@ -83,11 +83,11 @@
 
 
 🧠 **Advanced Features**
-AI-based fashion recommendation engine
-Smart outfit generation
-Dynamic stock management
-Live cart updates
-Secure payment integration
+- AI-based fashion recommendation engine
+- Smart outfit generation
+- Dynamic stock management
+- Live cart updates
+- Secure payment integration
 
 ---
 
@@ -111,8 +111,6 @@ Secure payment integration
 
 ### 🛒 Cart Page
 <img width="1876" height="906" alt="Screenshot_11-5-2026_113657_localhost" src="https://github.com/user-attachments/assets/8d6e7f48-5d42-4ac9-aca7-8bc65189f4c4" />
-
-
 
 
 ### Stripe Payment
