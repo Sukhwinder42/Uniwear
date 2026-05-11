@@ -1,6 +1,6 @@
-# 🛍️ UniWear — Modern E-Commerce Web Application
+# 🛍️ UniWear — AI-Powered Fashion E-Commerce Web Application
 
-🚀 **UniWear** is a full-featured e-commerce platform built with ASP.NET Core MVC, offering a seamless shopping experience with secure authentication, product browsing, and online payments.
+🚀 **UniWear** is a modern full-stack fashion e-commerce platform built using ASP.NET Core MVC, designed to deliver a seamless online shopping experience with secure authentication, smart outfit recommendations, cart management, and online payments.
 
 ---
 
@@ -9,21 +9,44 @@
 🔐 **Secure Authentication**
 - ASP.NET Identity (Email & Password)
 - Google OAuth 2.0 Login
+- Secure session & user management
 
-🛒 **Shopping Experience**
+🛒 **E-Commerce Functionalities**
 - Browse products by category (Men, Women, Kids)
-- Product details with images
-- Add to Cart functionality
-- Wishlist (Favorites system)
+- Product details with images & descriptions
+- Add to Cart with live cart count update (AJAX)
+- Wishlist / Favorites system
+- Dynamic cart quantity management
+- Stock availability validation
+- Automatic stock reduction after order placement
+
+
+🤖 **Smart Outfit Recommendation System**
+- AI-powered outfit recommendation integration using Gemini API
+- Rule-based intelligent outfit matching
+- Product matching based on:
+- Gender
+- Occasion
+- Color combinations
+- Clothing type
+
 
 💳 **Online Payments**
 - Stripe Payment Integration (Test Mode)
 - Secure checkout flow
+- Payment success-based order creation
 
-🎯 **User-Friendly UI**
-- Responsive design using Bootstrap 5
-- Clean and modern layout
+📦 **Order Management**
+- User-specific order history
+- My Orders page
+- Order summary with purchased products
+- Order status tracking
 
+⚡ **Interactive User Experience**
+- AJAX-based cart updates without page refresh
+- Responsive UI using Bootstrap 5
+- Modern shopping experience
+  
 ---
 
 ## 🛠️ Tech Stack
@@ -36,6 +59,9 @@
 | Bootstrap 5 | Frontend styling |
 | Stripe API | Payment Gateway |
 | ASP.NET Identity | Authentication |
+| Gemini API | AI Outfit Recommendations |
+| JavaScript & AJAX	| Dynamic interactions |
+
 
 ---
 
@@ -45,6 +71,7 @@
 - Google Sign-In integration
 - Secure password hashing
 - Session management
+- Role-based Identity System
 
 ---
 
@@ -53,6 +80,14 @@
 - Stripe Checkout (Test Mode)
 - Simulated transactions
 - Easy integration for production upgrade
+
+
+🧠 **Advanced Features**
+AI-based fashion recommendation engine
+Smart outfit generation
+Dynamic stock management
+Live cart updates
+Secure payment integration
 
 ---
 
@@ -75,7 +110,6 @@
 
 
 ### 🛒 Cart Page
-![Screenshot_8-4-2026_135611_localhost](https://github.com/user-attachments/assets/d5dd0861-beb1-43ea-b28f-8f62c300f12d)
 <img width="1876" height="906" alt="Screenshot_11-5-2026_113657_localhost" src="https://github.com/user-attachments/assets/8d6e7f48-5d42-4ac9-aca7-8bc65189f4c4" />
 
 
