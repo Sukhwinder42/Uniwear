@@ -49,79 +49,79 @@ namespace Uniwear.Data
             //    .HasForeignKey(cr => cr.ChatRequestId);
 
 
-            modelbuilder.Entity<Product>().HasData(
+            //modelbuilder.Entity<Product>().HasData(
 
-                new Product
-                {
+            //    new Product
+            //    {
                     
-                    Id = 1,
-                    Name = "Uniwear Hoodie",
-                    Description = "A comfortable and stylish hoodie for university students.",
-                    Price = 39.99m,
-                    ImageUrl = "https://in.puma.com/in/en/pd/essentials-no--1-logo-mens-comfort-hoodie/682571?size=0140&swatch=55&utm_source=BING-DDA&utm_medium=DSP&utm_campaign=DSP_BING_DDA_IN_PMAX_agency_1000067495857508873&msclkid=2707980aa4df1e51bf0bf196b51250c6",
-                    StockQuantity = 100,
-                    CategoryId = 1,
-                    Color = "Black",
-                    Type = "Top",
-                    Occasion = "Casual"
-                },
-                new Product
-                {
+            //        Id = 1,
+            //        Name = "Uniwear Hoodie",
+            //        Description = "A comfortable and stylish hoodie for university students.",
+            //        Price = 39.99m,
+            //        ImageUrl = "https://in.puma.com/in/en/pd/essentials-no--1-logo-mens-comfort-hoodie/682571?size=0140&swatch=55&utm_source=BING-DDA&utm_medium=DSP&utm_campaign=DSP_BING_DDA_IN_PMAX_agency_1000067495857508873&msclkid=2707980aa4df1e51bf0bf196b51250c6",
+            //        StockQuantity = 100,
+            //        CategoryId = 1,
+            //        Color = "Black",
+            //        Type = "Top",
+            //        Occasion = "Casual"
+            //    },
+            //    new Product
+            //    {
                     
-                    Id = 2,
-                    Name = "Uniwear T-Shirt",
-                    Description = "A cool t-shirt with the Uniwear logo.",
-                    Price = 19.99m,
-                    ImageUrl = "https://sl.bing.net/fw3YOvHs6H6",
-                    StockQuantity = 200,
-                    CategoryId = 2,
-                    Color = "White",
-                    Type = "Top",
-                    Occasion = "Casual"
-                },
-                new Product
-                {
+            //        Id = 2,
+            //        Name = "Uniwear T-Shirt",
+            //        Description = "A cool t-shirt with the Uniwear logo.",
+            //        Price = 19.99m,
+            //        ImageUrl = "https://sl.bing.net/fw3YOvHs6H6",
+            //        StockQuantity = 200,
+            //        CategoryId = 2,
+            //        Color = "White",
+            //        Type = "Top",
+            //        Occasion = "Casual"
+            //    },
+            //    new Product
+            //    {
                   
-                    Id = 3,
-                    Name = "Uniwear Backpack",
-                    Description = "A durable backpack perfect for carrying your books and laptop.",
-                    Price = 49.99m,
-                    ImageUrl = "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_750,h_750/global/091993/01/fnd/IND/fmt/png/Archive-KING-Backpack-28L",
-                    StockQuantity = 150,
-                    CategoryId = 3,
-                    Color = "Navy",
-                    Type = "Top",
-                    Occasion = "Casual"
-                },
-                new Product
-                {
+            //        Id = 3,
+            //        Name = "Uniwear Backpack",
+            //        Description = "A durable backpack perfect for carrying your books and laptop.",
+            //        Price = 49.99m,
+            //        ImageUrl = "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_750,h_750/global/091993/01/fnd/IND/fmt/png/Archive-KING-Backpack-28L",
+            //        StockQuantity = 150,
+            //        CategoryId = 3,
+            //        Color = "Navy",
+            //        Type = "Top",
+            //        Occasion = "Casual"
+            //    },
+            //    new Product
+            //    {
                    
-                    Id = 4,
-                    Name = "Uniwear Cap",
-                    Description = "A stylish cap to complete your university look.",
-                    Price = 14.99m,
-                    ImageUrl = "https://sl.bing.net/eEj6P0lzOc8",
-                    StockQuantity = 300,
-                    CategoryId = 4,
-                    Color = "Red",
-                    Type = "Top",
-                    Occasion = "Casual"
-                },
-                new Product
-                {
+            //        Id = 4,
+            //        Name = "Uniwear Cap",
+            //        Description = "A stylish cap to complete your university look.",
+            //        Price = 14.99m,
+            //        ImageUrl = "https://sl.bing.net/eEj6P0lzOc8",
+            //        StockQuantity = 300,
+            //        CategoryId = 4,
+            //        Color = "Red",
+            //        Type = "Top",
+            //        Occasion = "Casual"
+            //    },
+            //    new Product
+            //    {
                    
-                    Id = 5,
-                    Name = "Uniwear Sweatpants",
-                    Description = "Comfortable sweatpants for lounging or studying.",
-                    Price = 29.99m,
-                    ImageUrl = "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_750,h_750/global/691700/16/mod01/fnd/IND/fmt/png/Essentials-Block-Men's-Knitted-Sweatpants",
-                    StockQuantity = 120,
-                    CategoryId = 5,
-                    Color = "Grey",
-                    Type = "Bottom",
-                    Occasion = "Loungewear"
-                }
-                );
+            //        Id = 5,
+            //        Name = "Uniwear Sweatpants",
+            //        Description = "Comfortable sweatpants for lounging or studying.",
+            //        Price = 29.99m,
+            //        ImageUrl = "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_750,h_750/global/691700/16/mod01/fnd/IND/fmt/png/Essentials-Block-Men's-Knitted-Sweatpants",
+            //        StockQuantity = 120,
+            //        CategoryId = 5,
+            //        Color = "Grey",
+            //        Type = "Bottom",
+            //        Occasion = "Loungewear"
+            //    }
+            //    );
 
             modelbuilder.Entity<Category>().HasData(
                 new Category
